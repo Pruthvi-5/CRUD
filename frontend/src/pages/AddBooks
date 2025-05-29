@@ -1,0 +1,114 @@
+import React from "react";
+import { useState } from "react";
+import axios from "axios";
+const AddBooks = () => {
+   const [ Data , setData ]= useState ({bookname:" ", author:" ", description:"", price:"",image:" "});
+   const change=(e)=>{
+      const {name,value }= e.target;
+      setData({...Data,[name]: value});
+   };
+   const submit=async(e)=>{
+      e.preventDefault();
+      await axios
+      .post("http://localhost:1000/api/v1/add",Data)
+      .then((res)=> alert(res.data.message));
+      setData({bookname:" ", author:" ", description:"", price:"",image:" "});
+
+   };
+   console.log(Data);
+  return (
+    <div 
+    className=" bg-dark d-flex justify-content-center align-items-center" style={{minHeight:"91.5vh"}}>
+      <div className="conatiner p-4">
+        <div className="mb-3">
+           <label 
+           for="exampleFormControlInput1" 
+           className="form-label text-white">
+            Book Name
+           </label>
+           <input 
+           type="text" 
+           className="form-control" 
+           id="exampleFormControlInput1" 
+           placeholder="Enter book name"
+           name="bookname"
+           value= {Data.bookname}
+           onchange={change}
+           />
+        </div>
+
+        <div className="mb-3">
+           <label 
+           for="exampleFormControlInput1" 
+           className="form-label text-white">
+            Author
+           </label>
+           <input 
+           type="text" 
+           className="form-control" 
+           id="exampleFormControlInput1" 
+           placeholder="Enter the name of author"
+           name="author"
+           value= {Data.author}
+           onchange={change}
+           />
+        </div>
+
+        <div className="mb-3">
+           <label 
+           for="exampleFormControlInput1" 
+           className="form-label text-white">
+            Description
+           </label>
+           <input 
+           type="text" 
+           className="form-control" 
+           id="exampleFormControlInput1" 
+           placeholder="Enter Description of the Book "
+           name="description"
+           value= {Data.description}
+           onchange={change}
+           />
+        </div>
+
+        <div className="mb-3">
+           <label 
+           for="exampleFormControlInput1" 
+           className="form-label text-white">
+            Image
+           </label>
+           <input 
+           type="text" 
+           className="form-control" 
+           id="exampleFormControlInput1" 
+           placeholder="Enter the UR of the Image"
+           name="image"
+           value= {Data.image}
+           onchange={change}
+           />
+        </div>
+
+        <div className="mb-3">
+           <label 
+           for="exampleFormControlInput1" 
+           className="form-label text-white">
+            Price
+           </label>
+           <input 
+           type="number" 
+           className="form-control" 
+           id="exampleFormControlInput1" 
+           placeholder="Enter the Price"
+           name="price"
+           value= {Data.price}
+           onchange={change}
+           />
+        </div>
+        <button className="btn btn-success" onClick={submit}>
+         Submit</button>
+      </div>
+    </div>
+  );
+};
+
+export default AddBooks;
